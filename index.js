@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send({ hi: 'there' });
+  res.send({ hi: 'heroku' });
 });
 
 // in production, the PORT will be provided by heroku
