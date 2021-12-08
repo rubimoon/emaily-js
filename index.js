@@ -5,4 +5,8 @@ app.get('/', (req, res) => {
   res.send({ hi: 'there' });
 });
 
-app.listen(5050);
+// in production, the PORT will be provided by heroku
+const PORT = process.env.PORT || 5050;
+
+// express telling node to listen to the port.
+app.listen(PORT);
