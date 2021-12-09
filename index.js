@@ -7,10 +7,16 @@ const app = express();
 
 // kinda like generic Register
 passport.use(
-  new GoogleStrategy({
-    clientID: keys.googleClientID,
-    clientSecret: keys.googleClientSecret,
-  })
+  new GoogleStrategy(
+    {
+      clientID: keys.googleClientID,
+      clientSecret: keys.googleClientSecret,
+      callbackURL: '/auth/google/callback',
+    },
+    (accessToken) => {
+      console.log(accessToken);
+    }
+  )
 );
 
 // in production, the PORT will be provided by heroku
