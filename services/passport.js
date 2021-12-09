@@ -5,8 +5,21 @@ const mongoose = require('mongoose');
 //pull out the User model class from mongoose in order to create User instance
 const User = mongoose.model('users');
 
+//user is either existingUser or newUser in the callback function
+//user.id is the token that is carried in the cookie
+// id is not profile.id but the property generated automatically by mongoDB
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id).then((user) => {
+    done(null, user);
+  });
+});
+
 // kinda like generic Register
-// callback which is called when the google redirect the user after the authentication
+// callback which is called when the google redirect    the user after the authentication
 passport.use(
   new GoogleStrategy(
     {
@@ -15,9 +28,19 @@ passport.use(
       callbackURL: '/auth/google/callback',
     },
     (accessToken, refreshToken, profile, done) => {
-      new User({
-        googleId: profile.id,
-      }).save();
+      User.findOne({ googleId: profile.id }).then((existingUser) => {
+        if (existingUser) {
+          done(null, existingUser);
+        } else {
+          new User({
+            googleId: profile.id,
+          })
+            .save()
+            .then((newUser) => {
+              done(null, newUser);
+            });
+        }
+      });
     }
   )
 );
