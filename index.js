@@ -19,6 +19,16 @@ passport.use(
   )
 );
 
+//the first time to grant permission
+app.get(
+  '/auth/google',
+  passport.authenticate('google', {
+    scope: ['profile', 'email'],
+  })
+);
+
+app.get('/auth/google/callback', passport.authenticate('google'));
+
 // in production, the PORT will be provided by heroku
 const PORT = process.env.PORT || 5050;
 // express telling node to listen to the port.
