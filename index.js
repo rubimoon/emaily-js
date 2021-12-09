@@ -1,9 +1,11 @@
 const express = require('express');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send({ hi: 'heroku' });
-});
+// kinda like generic Register
+passport.use(new GoogleStrategy());
 
 // in production, the PORT will be provided by heroku
 const PORT = process.env.PORT || 5050;
