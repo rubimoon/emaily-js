@@ -25,17 +25,17 @@ passport.use(
     {
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
-      // callbackURL: '/auth/google/callback',
-      callbackURL:
-        'https://fierce-wildwood-88401.herokuapp.com/auth/google/callback',
-      // proxy: true,
+      callbackURL: '/auth/google/callback',
+      proxy: true,
     },
     (accessToken, refreshToken, profile, done) => {
       try {
         User.findOne({ googleId: profile.id }).then((existingUser) => {
+          console.log('user is existed!');
           if (existingUser) {
             done(null, existingUser);
           } else {
+            console.log('creating a new user!');
             new User({
               googleId: profile.id,
             })
@@ -46,6 +46,7 @@ passport.use(
           }
         });
       } catch (error) {
+        console.log('Failed to communicate with MongoDB.');
         console.log(error);
       }
     }
