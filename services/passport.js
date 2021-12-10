@@ -25,8 +25,10 @@ passport.use(
     {
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
-      callbackURL: '/auth/google/callback',
-      proxy: true,
+      // callbackURL: '/auth/google/callback',
+      callbackURL:
+        'https://fierce-wildwood-88401.herokuapp.com/auth/google/callback',
+      // proxy: true,
     },
     (accessToken, refreshToken, profile, done) => {
       try {
