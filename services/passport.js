@@ -46,7 +46,6 @@ passport.use(
           }
         });
       } catch (error) {
-        console.log('Failed to communicate with MongoDB.');
         console.log(error);
       }
     }
