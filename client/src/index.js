@@ -4,7 +4,7 @@ import App from './components/App';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
-const store = createStore(() => [], {}, applyMiddleware);
+const store = createStore(() => [], {}, applyMiddleware());
 
 ReactDOM.render(
   <Provider store={store}>
@@ -12,5 +12,3 @@ ReactDOM.render(
   </Provider>,
   document.querySelector('#root')
 );
-
-
