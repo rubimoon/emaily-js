@@ -1,6 +1,6 @@
 import { Route, Routes as ReactRoutes } from 'react-router-dom';
+import Landing from './Landing';
 
-const Landing = () => <h2>Landing</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;
 
 const Routes = () => {
