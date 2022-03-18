@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.auth);
@@ -24,9 +25,9 @@ const Header = () => {
   return (
     <nav>
       <div className='nav-wrapper'>
-        <a href='/' className='left brand-logo'>
+        <Link to={currentUser ? '/surveys' : '/'} className='left brand-logo'>
           Emaily
-        </a>
+        </Link>
         <ul className='right'>{checkLoginStatus()}</ul>
       </div>
     </nav>
