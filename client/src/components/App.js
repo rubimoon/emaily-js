@@ -1,10 +1,16 @@
-import React from 'react';
+import { useEffect } from 'react';
 import Header from '../components/Header';
-import { connect } from 'react-redux';
 import Routes from './Routes';
 import * as actions from '../state/actions';
+import { useDispatch } from 'react-redux';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actions.fetchUser());
+  }, [dispatch]);
+
   return (
     <div className='container'>
       <Header />
@@ -13,4 +19,4 @@ const App = () => {
   );
 };
 
-export default connect()(App);
+export default App;

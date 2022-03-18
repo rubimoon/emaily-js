@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+// sending request with proxy server
+
 const responseBody = (response) => response.data;
 
 const requests = {
