@@ -7,7 +7,7 @@ const Routes = () => {
   return (
     <ReactRoutes>
       <Route exact path='/' element={<Landing />} />
-      <Route path='/survey' element={<SurveyNew />} />
+      <Route path='/surveys' element={<SurveyNew />} />
     </ReactRoutes>
   );
 };

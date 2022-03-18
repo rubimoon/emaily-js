@@ -10,7 +10,7 @@ const Header = () => {
       case false:
         return (
           <li>
-            <a href='/'>Login with Google</a>
+            <a href='/auth/google'>Login with Google</a>
           </li>
         );
       default:
