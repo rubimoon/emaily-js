@@ -7,7 +7,14 @@ require('./models/User');
 require('./services/passport');
 
 // express telling node to listen to the port.
-mongoose.connect(keys.mongoURL);
+mongoose
+  .connect(keys.mongoURL, { dbName: 'test' })
+  .then(() => {
+    console.log('Successfully connected to DB');
+  })
+  .catch(() => {
+    console.log('Failed to connect to DB');
+  });
 
 const app = express();
 
@@ -23,4 +30,6 @@ app.use(passport.session());
 require('./routes/authRoutes')(app);
 const PORT = process.env.PORT || 5050;
 // in production, the PORT will be provided by heroku
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
+});
