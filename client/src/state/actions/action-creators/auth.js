@@ -6,4 +6,8 @@ const fetchUser = () => async (dispatch) => {
   dispatch({ type: FETCH_USER, payload: currentUser });
 };
 
-export { fetchUser };
+const handlePayment = (token) => async (dispatch) => {
+  const user = await agent.Account.sendPaymentToken(token);
+  dispatch({ type: FETCH_USER, payload: user });
+};
+export { fetchUser, handlePayment };

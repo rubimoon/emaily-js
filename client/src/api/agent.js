@@ -11,6 +11,7 @@ const requests = {
 
 const Account = {
   currentUser: () => requests.get('/api/current_user'),
+  sendPaymentToken: (token) => requests.post('/api/stripe', { token }),
 };
 
 const agent = {
