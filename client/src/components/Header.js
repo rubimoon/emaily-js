@@ -20,7 +20,10 @@ const Header = () => {
           <li key='1'>
             <Payments />
           </li>,
-          <li key='2'>
+          <li key='2' style={{ margin: '0 10px' }}>
+            Credits: {currentUser.credits}
+          </li>,
+          <li key='3'>
             <a href='/api/logout'>Logout</a>
           </li>,
         ];
