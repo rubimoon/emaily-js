@@ -1,6 +1,8 @@
 const requireCredits = require('../middlewares/requireCredits');
 const requireLogin = require('../middlewares/requireLogin');
-const { Survey } = require('../models/Survey');
+const Survey = require('../models/Survey');
+const Mailer = require('../services/email/Mailer');
+const surveyTemplate = require('../services/email/templates/surveyTemplate');
 
 module.exports = (app) => {
   app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
@@ -16,7 +18,10 @@ module.exports = (app) => {
       _user: req.user.id,
     });
 
+    const mailer = new Mailer(survey, surveyTemplate(survey));
+    mailer.send();
+
     // TODO make sure emails got sent successfully
-    await survey.save();
+    // await survey.save();
   });
 };
