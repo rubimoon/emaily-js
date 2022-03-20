@@ -4,8 +4,10 @@ const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
-require('./models/User');
 require('./services/passport');
+// import mongoose models
+require('./models/User');
+require('./models/Survey');
 
 // express telling node to listen to the port.
 mongoose
