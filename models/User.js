@@ -15,4 +15,4 @@ const userSchema = new Schema({
 
 // create the model class if it doesn't exit, while it won't override it if already exited.
 // load the schema "into" mongoose
-mongoose.model('users', userSchema);
+module.exports = mongoose.model('users', userSchema);
