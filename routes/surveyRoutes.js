@@ -19,9 +19,15 @@ module.exports = (app) => {
     });
 
     const mailer = new Mailer(survey, surveyTemplate(survey));
-    mailer.send();
+    try {
+      await mailer.send();
+      await survey.save();
+      req.user.credits -= 1;
+      const user = await req.user.save();
 
-    // TODO make sure emails got sent successfully
-    // await survey.save();
+      res.send(user);
+    } catch (error) {
+      res.status(422).send(error);
+    }
   });
 };
