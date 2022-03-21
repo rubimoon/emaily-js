@@ -1,6 +1,7 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import SurveyField from './SurveyField';
+import { Link } from 'react-router-dom';
 
 const SurveyForm = ({ handleSubmit }) => {
   const FIELDS = [
@@ -24,10 +25,25 @@ const SurveyForm = ({ handleSubmit }) => {
     <div>
       <form onSubmit={handleSubmit((formProps) => console.log(formProps))}>
         {renderedFields}
-        <button>Submit</button>
+        <Link to='/surveys' className='red btn-flat white-text'>
+          Cancel
+        </Link>
+        <button className='teal btn-flat right white-text' type='submit'>
+          Next
+        </button>
       </form>
     </div>
   );
 };
 
-export default reduxForm({ form: 'surveyForm' })(SurveyForm);
+const validate = (formProps) => {
+  const errors = {};
+
+  if (!formProps.title) {
+    errors.title = 'You must provide a title';
+  }
+
+  return errors;
+};
+
+export default reduxForm({ form: 'surveyForm', validate })(SurveyForm);
