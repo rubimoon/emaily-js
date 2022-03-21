@@ -1,6 +1,8 @@
 import { FETCH_USER } from '../actions/types';
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = {
+  currentUser: '',
+};
 
 const reducer = (state = INITIAL_STATE, { type, payload }) => {
   switch (type) {

@@ -14,8 +14,13 @@ const Account = {
   sendPaymentToken: (token) => requests.post('/api/stripe', token),
 };
 
+const Surveys = {
+  submitSurvey: (values) => requests.post('/api/surveys', values),
+};
+
 const agent = {
   Account,
+  Surveys,
 };
 
 export default agent;

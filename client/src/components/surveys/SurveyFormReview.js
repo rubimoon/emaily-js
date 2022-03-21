@@ -1,10 +1,19 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { SURVEY_FIELDS } from '../../constants/form-fields';
+import { useNavigate } from 'react-router-dom';
+import * as actions from '../../state/actions';
 
-const SurveyFormReview = ({ onBack, onSubmit }) => {
+const SurveyFormReview = ({ onBack }) => {
   const { surveyForm } = useSelector((state) => state.form);
   const { values } = surveyForm;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    dispatch(actions.submitSurvey(values));
+    navigate('/');
+  };
 
   return (
     <div>
@@ -12,15 +21,21 @@ const SurveyFormReview = ({ onBack, onSubmit }) => {
       <div>
         {SURVEY_FIELDS.map((field) => {
           return (
-            <div>
+            <div key={field.name}>
               <label>{field.label}</label>
               <div>{values[field.name]}</div>
             </div>
           );
         })}
       </div>
-      <button className='yellow darken-3 btn-flat' onClick={onBack}>
+      <button className='yellow darken-3 btn-flat white-text' onClick={onBack}>
         Back
+      </button>
+      <button
+        className='green btn-flat right white-text'
+        onClick={handleSubmit}
+      >
+        Send Survey
       </button>
     </div>
   );

@@ -33,7 +33,7 @@ const SurveyForm = ({ handleSubmit, onReview }) => {
 
 const validate = (values) => {
   const errors = {};
-  errors.emails = validateEmails(values.emails || '');
+  errors.emails = validateEmails(values.recipients || '');
 
   SURVEY_FIELDS.forEach((field) => {
     if (!values[field.name]) {
