@@ -1,6 +1,6 @@
 import StripeCheckout from 'react-stripe-checkout';
 import { useDispatch } from 'react-redux';
-import * as actions from '../state/actions';
+import * as actions from '../../state/actions';
 
 const Payments = () => {
   const dispatch = useDispatch();

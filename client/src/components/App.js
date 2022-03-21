@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import Header from '../components/Header';
+import Header from './layout/Header';
 import Routes from './Routes';
 import * as actions from '../state/actions';
 import { useDispatch } from 'react-redux';
