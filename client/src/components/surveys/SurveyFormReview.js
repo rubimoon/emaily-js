@@ -12,7 +12,7 @@ const SurveyFormReview = ({ onBack }) => {
 
   const handleSubmit = () => {
     dispatch(actions.submitSurvey(values));
-    navigate('/');
+    navigate('/surveys');
   };
 
   return (
