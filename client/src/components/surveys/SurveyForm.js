@@ -3,14 +3,14 @@ import { reduxForm, Field } from 'redux-form';
 import SurveyField from './SurveyField';
 import { Link } from 'react-router-dom';
 
-const SurveyForm = ({ handleSubmit }) => {
-  const FIELDS = [
-    { label: 'Survey Title', name: 'title' },
-    { label: 'Subjet Line', name: 'subject' },
-    { label: 'Email Body', name: 'body' },
-    { label: 'Recipient List', name: 'emails' },
-  ];
+const FIELDS = [
+  { label: 'Survey Title', name: 'title' },
+  { label: 'Subjet Line', name: 'subject' },
+  { label: 'Email Body', name: 'body' },
+  { label: 'Recipient List', name: 'emails' },
+];
 
+const SurveyForm = ({ handleSubmit }) => {
   const renderedFields = FIELDS.map((field) => (
     <Field
       key={field.name}
@@ -36,13 +36,14 @@ const SurveyForm = ({ handleSubmit }) => {
   );
 };
 
-const validate = (formProps) => {
+const validate = (value) => {
   const errors = {};
 
-  if (!formProps.title) {
-    errors.title = 'You must provide a title';
-  }
-
+  FIELDS.forEach((field) => {
+    if (!value[field.name]) {
+      errors[field.name] = `You must provide a ${field.name}`;
+    }
+  });
   return errors;
 };
 
