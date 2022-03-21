@@ -1,4 +1,5 @@
-import Payments from '../ui/Payments';
+import React from 'react';
+import Payments from '../payments/Payments';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
