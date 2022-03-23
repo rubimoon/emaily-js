@@ -6,7 +6,7 @@ const { createMailer, sendEmails } = require('../services/emails');
 const { createSurvey, updateUniqueEvent } = require('../services/surveys');
 
 module.exports = (app) => {
-  app.get('/api/surveys/thanks', (req, res) => {
+  app.get('/api/surveys/:surveyId/:choice', (req, res) => {
     res.send('<h1>Thanks for voting</h1>');
   });
 

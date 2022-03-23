@@ -43,6 +43,7 @@ const updateSurvey = ({ surveyId, email, choice }) => {
     {
       $inc: { [choice]: 1 },
       $set: { 'recipients.$.responded': true },
+      lastResponded: new Date(),
     }
   );
 
