@@ -13,4 +13,4 @@ const reducer = (state = INITIAL_STATE, { type, payload }) => {
   }
 };
 
-export default reducer;
+export { reducer as authReducer };

@@ -15,6 +15,7 @@ const Account = {
 };
 
 const Surveys = {
+  fetchSurveys: () => requests.get('/api/surveys'),
   submitSurvey: (values) => requests.post('/api/surveys', values),
 };
 

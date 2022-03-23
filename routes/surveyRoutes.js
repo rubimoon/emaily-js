@@ -12,6 +12,7 @@ const {
 module.exports = (app) => {
   app.get('/api/surveys', requireLogin, async (req, res) => {
     const surveys = await getSurveysByUser(req.user.id);
+    console.log(surveys);
     res.send(surveys);
   });
 
