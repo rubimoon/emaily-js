@@ -9,8 +9,9 @@ require('./services/auth');
 require('./models/User');
 require('./models/Survey');
 
-const app = express();
 connectDb();
+
+const app = express();
 app.use(bodyParser.json());
 
 // Middlewares

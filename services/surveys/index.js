@@ -50,4 +50,9 @@ const updateSurvey = ({ surveyId, email, choice }) => {
   query.exec();
 };
 
-module.exports = { createSurvey, updateUniqueEvent };
+const getSurveysByUser = async (userId) =>
+  await Survey.find({ _user: userId }).select({
+    recipients: false,
+  });
+
+module.exports = { createSurvey, updateUniqueEvent, getSurveysByUser };
