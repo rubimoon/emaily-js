@@ -1,42 +1,24 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const keys = require('./config/keys');
-const cookieSession = require('cookie-session');
-const passport = require('passport');
-require('./services/passport');
-// import mongoose models
+const { connectDb } = require('./services/database');
+const PORT = process.env.PORT || 5050;
+
+// Services
+require('./services/auth');
+// Models
 require('./models/User');
 require('./models/Survey');
 
-// express telling node to listen to the port.
-mongoose
-  .connect(keys.mongoURL, { dbName: 'test' })
-  .then(() => {
-    console.log('Successfully connected to DB');
-  })
-  .catch(() => {
-    console.log('Failed to connect to DB');
-  });
-
 const app = express();
-
+connectDb();
 app.use(bodyParser.json());
 
-// middleware for authentication
-app.use(
-  cookieSession({
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [keys.cookieKey],
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
-
-// middleware for routing
+// Middlewares
+require('./middlewares/auth')(app);
 require('./routes/authRoutes')(app);
 require('./routes/paymentRoutes')(app);
 require('./routes/surveyRoutes')(app);
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   const path = require('path');
@@ -45,8 +27,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const PORT = process.env.PORT || 5050;
-// in production, the PORT will be provided by heroku
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
