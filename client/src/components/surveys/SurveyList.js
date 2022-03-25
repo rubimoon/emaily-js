@@ -18,7 +18,7 @@ const SurveyList = () => {
             <span className='card-title'>{survey.title}</span>
             <p>{survey.body}</p>
             <p className='right'>
-              Sent On: {new Date(survey.dateSend).toLocaleDateString()}
+              Sent On: {new Date(survey.dateSent).toLocaleDateString()}
             </p>
           </div>
           <div className='card-action'>
