@@ -16,7 +16,7 @@ const createSurvey = (user, survey) => {
 const getRecipients = (recipients) =>
   recipients.split(',').map((email) => ({ email: email.trim() }));
 
-const updateUniqueEvent = (eventArr, path) =>
+const updateUniqueEvent = (path, eventArr) =>
   _.chain(eventArr)
     .map(({ email, url }) => {
       const match = path.test(new URL(url).pathname);
@@ -50,9 +50,27 @@ const updateSurvey = ({ surveyId, email, choice }) => {
   query.exec();
 };
 
-const getSurveysByUser = async (userId) =>
-  await Survey.find({ _user: userId }).select({
+const getSurveysByUser = async (userId) => {
+  const redis = require('redis');
+  const redisUrl = 'redis://127.0.0.1:6379';
+  const client = redis.createClient(redisUrl);
+  await client.connect();
+
+  const cachedSurveys = await client.get(userId);
+
+  if (cachedSurveys) {
+    console.log('Serving from Redis');
+    return JSON.parse(cachedSurveys);
+  }
+
+  console.log('Serving from MongoDB');
+  const surveys = await Survey.find({ _user: userId }).select({
     recipients: false,
   });
+
+  client.set(userId, JSON.stringify(surveys));
+
+  return surveys;
+};
 
 module.exports = { createSurvey, updateUniqueEvent, getSurveysByUser };

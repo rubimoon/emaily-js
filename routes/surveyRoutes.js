@@ -12,7 +12,6 @@ const {
 module.exports = (app) => {
   app.get('/api/surveys', requireLogin, async (req, res) => {
     const surveys = await getSurveysByUser(req.user.id);
-    console.log(surveys);
     res.send(surveys);
   });
 
@@ -34,6 +33,6 @@ module.exports = (app) => {
 
   app.post('/api/surveys/webhooks', (req, res) => {
     const p = new Path('/api/surveys/:surveyId/:choice');
-    updateUniqueEvent(req.body, p);
+    updateUniqueEvent(p, req.body);
   });
 };
