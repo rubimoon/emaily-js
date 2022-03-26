@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { connectDb } = require('./services/database');
 const PORT = process.env.PORT || 5050;
 
 // Services
@@ -9,8 +8,11 @@ require('./services/auth');
 require('./models/User');
 require('./models/Survey');
 
-connectDb();
+// Db connection
+require('./services/database/persistence');
+require('./services/database/cache');
 
+// Express Server
 const app = express();
 app.use(bodyParser.json());
 

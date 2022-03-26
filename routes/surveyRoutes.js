@@ -8,6 +8,7 @@ const {
   updateUniqueEvent,
   getSurveysByUser,
 } = require('../services/surveys');
+const cleanCache = require('../middlewares/cleanCache');
 
 module.exports = (app) => {
   app.get('/api/surveys', requireLogin, async (req, res) => {
@@ -15,17 +16,23 @@ module.exports = (app) => {
     res.send(surveys);
   });
 
-  app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
-    const survey = createSurvey(req.user, req.body);
-    const mailer = createMailer(survey, surveyTemplate);
+  app.post(
+    '/api/surveys',
+    requireLogin,
+    requireCredits,
+    cleanCache,
+    async (req, res) => {
+      const survey = createSurvey(req.user.id, req.body);
+      const mailer = createMailer(survey, surveyTemplate);
 
-    try {
-      const user = await sendEmails(req.user, mailer, survey);
-      res.send(user);
-    } catch (error) {
-      res.status(422).send(error);
+      try {
+        const user = await sendEmails(req.user, mailer, survey);
+        res.send(user);
+      } catch (error) {
+        res.status(422).send(error);
+      }
     }
-  });
+  );
 
   app.get('/api/surveys/:surveyId/:choice', (req, res) => {
     res.send('<h1>Thanks for voting</h1>');
